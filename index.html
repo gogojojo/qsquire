@@ -142,6 +142,12 @@
     <script>
         const overlay = document.getElementById('overlay');
         const form = document.getElementById('infoForm');
+        const STORAGE_KEY = 'qsquire_form_submitted';
+
+        // Check if user has already submitted the form
+        if (localStorage.getItem(STORAGE_KEY) === 'true') {
+            overlay.classList.add('hidden');
+        }
 
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -158,6 +164,8 @@
                 });
                 
                 if (response.ok) {
+                    // Save to localStorage that form has been submitted
+                    localStorage.setItem(STORAGE_KEY, 'true');
                     overlay.classList.add('hidden');
                 } else {
                     // Still hide overlay even if there's an error
